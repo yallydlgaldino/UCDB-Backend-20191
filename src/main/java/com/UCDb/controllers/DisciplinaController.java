@@ -27,7 +27,7 @@ public class DisciplinaController {
 	DisciplinaService service;
 
 	@ResponseBody
-	@RequestMapping(value = "/subject/createSubject", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	@RequestMapping(value = "/disciplina/adicionarDisciplina", consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
 	public ResponseEntity<String> create(@RequestBody Disciplina disciplina) {
 		String returnMessage = "Disciplina Criada com sucesso";
 		HttpStatus http = HttpStatus.CREATED;
@@ -41,7 +41,7 @@ public class DisciplinaController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/subject/search{word}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@RequestMapping(value = "/disciplina/pesquisaPorSubstring", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<Object> searchBySubstring(@RequestParam String nome) {
 		try {
 			return new ResponseEntity<Object>(service.pesquisaPorSubstring(nome), HttpStatus.FOUND);
@@ -51,7 +51,7 @@ public class DisciplinaController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/subject/searchId{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@RequestMapping(value = "/disciplina/pesquisaPerfilPorId", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<Object> searchProfileSubjectById(@RequestParam int id) {
 		try {
 			return new ResponseEntity<>(service.pesquisaPerfilPorId(id), HttpStatus.FOUND);
@@ -60,9 +60,10 @@ public class DisciplinaController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 
 	@ResponseBody
-	@RequestMapping(value = "/subject/AllSubjects", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@RequestMapping(value = "/disciplina/Disciplinas", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<List<Disciplina>> getAllSubjects() {
 		List<Disciplina> list = service.getDisciplinas();
 		if (list.isEmpty())
@@ -71,7 +72,7 @@ public class DisciplinaController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/subject/likeSubject/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+	@RequestMapping(value = "/disciplina/like/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	public ResponseEntity<String> like(@RequestParam int idDisciplina, @RequestBody String emailAutor) {
 		try {
 			service.like(idDisciplina, emailAutor);
@@ -82,7 +83,7 @@ public class DisciplinaController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/subject/likeSubject/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+	@RequestMapping(value = "/disciplina/dislike/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
 	public ResponseEntity<String> dislike(@RequestParam int idDisciplina, @RequestBody String emailAutor) {
 		try {
 			service.dislike(idDisciplina, emailAutor);
@@ -93,10 +94,10 @@ public class DisciplinaController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/subject/listProfileSubjects/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+	@RequestMapping(value = "/disciplina/perfilDisciplinasOrdenado/", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<PerfilDisciplina>> listAllProfileSubjects(
 			@RequestParam(name = "op", required = false, defaultValue = "0") int op) {
-		ArrayList<PerfilDisciplina> list = service.getProfileSubjetcsOrdened(op);
+		ArrayList<PerfilDisciplina> list = service.perfilDisciplinasOrdenado(op);
 		if (list.isEmpty())
 			return new ResponseEntity<ArrayList<PerfilDisciplina>>(HttpStatus.BAD_REQUEST);
 		return new ResponseEntity<ArrayList<PerfilDisciplina>>(list, HttpStatus.FOUND);

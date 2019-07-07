@@ -25,7 +25,7 @@ public class UsuarioController {
 	@Autowired
 	UsuarioService service;
 
-	@PostMapping(value="/registerUser",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/cadastrarUsuario",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
 		Usuario novoUsuario = null;
@@ -39,7 +39,7 @@ public class UsuarioController {
 		}		
 	}
 	
-	@GetMapping(value="/users", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<Usuario>> usuarios(){
 		try {

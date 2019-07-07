@@ -23,12 +23,10 @@ public class DisciplinaService {
 
 	@Autowired
 	DisciplinaRepository disciplinaRepository;
-	@Autowired
-	ComentarioRepository comentarioRepository;
+	
 	@Autowired
 	PerfilRepository perfilRepository;
-	@Autowired
-	RespostaReposiotry respostaReposiotry;
+	
 
 	public Disciplina adicionarDisciplina(Disciplina disciplina) {
 		Disciplina novaDisciplina = disciplinaRepository.save(disciplina);
@@ -87,7 +85,7 @@ public class DisciplinaService {
 		}
 	}
 	
-	public ArrayList<PerfilDisciplina> getProfileSubjetcsOrdened(int op) {
+	public ArrayList<PerfilDisciplina> perfilDisciplinasOrdenado(int op) {
 		if (op == 1) // op == 1, ordena os perfis por Like de forma crescente
 			return listarPerfisPorLikesCrescente();
 		else if (op == 2) // op == 2, ordena os perfis por Dislike de forma crescente
